@@ -4,8 +4,7 @@ import { For, Show } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { api } from '~/app';
 import Todo from '~/components/Todo';
-import { todoInsertSchema } from '~/routes/api/todo/schema';
-import { todoSchemas } from '~/routes/api/todo/schema';
+import { todoSchemas, todoInsertSchema } from '~/routes/api/todo/schema';
 
 export default function Home() {
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
