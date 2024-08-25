@@ -1,5 +1,5 @@
-import { drizzle as drizzlePostgres } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
+import { drizzle as drizzlePostgres } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
 import { drizzle as drizzlePGLite } from 'drizzle-orm/pglite';
 import { PGlite } from '@electric-sql/pglite';
 import { serverEnv } from '../../utils/env/server';
@@ -14,10 +14,7 @@ const options: DrizzleConfig<typeof schema> = {
 };
 
 export const db = isPostgres
-  ? drizzlePostgres(
-      new Pool({ connectionString: serverEnv.DATABASE_URL }),
-      options
-    )
+  ? drizzlePostgres(postgres(serverEnv.DATABASE_URL), options)
   : drizzlePGLite(new PGlite(serverEnv.DATABASE_URL), options);
 
 await db.execute(

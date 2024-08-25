@@ -5,7 +5,7 @@ import { createStore } from 'solid-js/store';
 import { api } from '~/app';
 import Todo from '~/components/Todo';
 import { todoInsertSchema } from '~/routes/api/todo/schema';
-import { validate } from '~/utils';
+import { todoSchemas } from '~/routes/api/todo/schema';
 
 export default function Home() {
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
@@ -44,7 +44,7 @@ export default function Home() {
             if (
               key === 'Enter' &&
               !todoAdd.isPending &&
-              validate(todoInsertSchema, todo)
+              todoSchemas.insert.safeParse(todo).success
             )
               todoAdd.mutate();
           }}
@@ -53,7 +53,9 @@ export default function Home() {
           class={
             'rounded border-2 border-black bg-gray-300 px-4 transition-all hover:bg-gray-400 active:bg-gray-400 disabled:cursor-not-allowed disabled:bg-gray-400'
           }
-          disabled={todoAdd.isPending || !validate(todoInsertSchema, todo)}
+          disabled={
+            todoAdd.isPending || !todoSchemas.insert.safeParse(todo).success
+          }
           onClick={() => todoAdd.mutate()}>
           Submit
         </button>

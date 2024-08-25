@@ -1,18 +1,22 @@
-import { createId } from '@paralleldrive/cuid2';
 import { pgTable, text } from 'drizzle-orm/pg-core';
-import { createInsertSchema, createSelectSchema } from 'drizzle-typebox';
-import { Type as t } from '@sinclair/typebox/type';
+import { createSelectSchema } from 'drizzle-typebox';
+import { Elysia, t } from 'elysia';
+import { ulid } from 'ulidx';
 
 export const todo = pgTable('todo', {
-  id: text('id').primaryKey().$defaultFn(createId),
+  id: text('id').primaryKey().$defaultFn(ulid),
   data: text('data').notNull(),
 });
 
-const insertSchema = createInsertSchema(todo, {
+export const todoSelectSchema = createSelectSchema(todo, {
   data: t.String({ minLength: 1, default: '' }),
 });
-export const todoInsertSchema = t.Omit(insertSchema, ['id']);
-export type TodoInsert = typeof todoInsertSchema.static;
+export type Todo = typeof todoSelectSchema.static;
+export const todoInsertSchema = t.Omit(todoSelectSchema, ['id']);
+export const todoDeleteSchema = t.Pick(todoSelectSchema, ['id']);
 
-export const todoSelectSchema = createSelectSchema(todo);
-export type TodoSelect = typeof todoSelectSchema.static;
+export const { models: todoSchemas } = new Elysia().model({
+  select: todoSelectSchema,
+  insert: todoInsertSchema,
+  delete: todoDeleteSchema,
+});

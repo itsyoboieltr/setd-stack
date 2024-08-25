@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { Elysia, t } from 'elysia';
-import { db } from '~/routes/api/db';
-import { todo, todoInsertSchema, todoSelectSchema } from './schema';
+import { Elysia } from 'elysia';
+import { todo, todoDeleteSchema, todoInsertSchema } from './schema';
+import { db } from '../db';
 
 export const todoRoute = new Elysia({ prefix: '/todo' })
   .get('', async () => await db.select().from(todo))
@@ -11,5 +11,5 @@ export const todoRoute = new Elysia({ prefix: '/todo' })
   .delete(
     '/:id',
     async ({ params }) => await db.delete(todo).where(eq(todo.id, params.id)),
-    { params: t.Pick(todoSelectSchema, ['id']) }
+    { params: todoDeleteSchema }
   );
