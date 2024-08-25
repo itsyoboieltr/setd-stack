@@ -4,8 +4,6 @@ services:
     restart: always
     build:
       context: .
-      args:
-        VITE_HOST_URL: ${VITE_HOST_URL:-http://localhost:3000}
     depends_on:
       - database
     ports:

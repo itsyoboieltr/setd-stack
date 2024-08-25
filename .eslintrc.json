@@ -1,20 +1,26 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "import", "solid", "drizzle"],
+  "parserOptions": { "project": "./tsconfig.json" },
+  "plugins": ["@typescript-eslint", "import", "drizzle"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "plugin:solid/typescript",
-    "plugin:drizzle/recommended"
+    "plugin:drizzle/recommended",
+    "next/core-web-vitals"
+  ],
+  "ignorePatterns": [
+    "next.config.mjs",
+    "postcss.config.mjs",
+    "prettier.config.mjs"
   ],
   "rules": {
-    "prefer-const": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "react/jsx-curly-brace-presence": [
+      "warn",
+      { "props": "always", "children": "never", "propElementValues": "always" }
+    ],
     "import/newline-after-import": ["warn", { "count": 1 }],
-    "solid/no-array-handlers": "error",
-    "solid/prefer-show": "error",
     "drizzle/enforce-delete-with-where": [
       "error",
       { "drizzleObjectName": ["db"] }

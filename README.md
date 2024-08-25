@@ -6,12 +6,12 @@
   DBEST stack
 </h1>
 
-The `DBEST` stack is a bun-based 🔥 `BLAZINGLY FAST` 🔥 full-stack `100% type-safe` web development solution that provides `everything` you need to build a `production-ready` web app based on the performant and scalable SolidStart meta-framework. It consists of:
+The `DBEST` stack is a bun-based 🔥 `BLAZINGLY FAST` 🔥 full-stack `100% type-safe` web development solution that provides `everything` you need to build a `production-ready` web app based on the performant and scalable Next.js meta-framework. It consists of:
 
 - [Drizzle](https://orm.drizzle.team)
 - [Bun](https://bun.sh)
 - [Elysia](https://elysiajs.com)
-- [SolidStart](https://start.solidjs.com/)
+- [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com)
 
 ## Creating a project
@@ -76,8 +76,6 @@ bun studio
 ## Environment variables ([.env](.env.example))
 
 - `PORT`: port that the application runs on. Default: `3000`
-
-- `VITE_HOST_URL`: host URL for the application. Default: `http://localhost:3000`
 
 - `DATABASE_USER`: database user for Postgres. Default: `postgres`
 

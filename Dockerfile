@@ -1,9 +1,5 @@
 FROM imbios/bun-node:latest-iron-alpine
 
-ARG VITE_HOST_URL
-
-ENV VITE_HOST_URL=$VITE_HOST_URL
-
 WORKDIR /app
 COPY . .
 
