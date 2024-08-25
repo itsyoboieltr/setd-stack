@@ -6,15 +6,15 @@ const {
   clientSchema: t.Object({}),
 });
 
-const clientEnvResult = clientSchema.safeParse({});
+const clientResult = clientSchema.safeParse({});
 
-if (!clientEnvResult.data) {
-  const firstError = clientEnvResult.errors[0];
+if (!clientResult.data) {
+  const firstError = clientResult.errors[0];
   if (firstError)
     throw new Error(
       `Invalid client environment variable ${firstError.path.slice(1)}: ${firstError.summary.replaceAll('  ', ' ')}`
     );
-  else throw new Error(`Invalid client environment ${clientEnvResult.error}`);
+  else throw new Error(`Invalid client environment ${clientResult.error}`);
 }
 
-export const clientEnv = clientEnvResult.data;
+export const client = clientResult.data;

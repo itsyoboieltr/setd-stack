@@ -8,17 +8,17 @@ const {
   }),
 });
 
-const serverEnvResult = serverSchema.safeParse({
-  DATABASE_URL: process.env.DATABASE_URL ?? '',
+const serverResult = serverSchema.safeParse({
+  DATABASE_URL: process.env.DATABASE_URL as string,
 });
 
-if (!serverEnvResult.data) {
-  const firstError = serverEnvResult.errors[0];
+if (!serverResult.data && typeof window === 'undefined') {
+  const firstError = serverResult.errors[0];
   if (firstError)
     throw new Error(
       `Invalid server environment variable ${firstError.path.slice(1)}: ${firstError.summary.replaceAll('  ', ' ')}`
     );
-  else throw new Error(`Invalid server environment ${serverEnvResult.error}`);
+  else throw new Error(`Invalid server environment ${serverResult.error}`);
 }
 
-export const serverEnv = serverEnvResult.data;
+export const server = serverResult.data;
